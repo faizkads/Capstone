@@ -17,7 +17,7 @@ import io
 from flask import Flask, request
 import numpy as np
 
-model = tf.keras.models.load_model('./mobilenetv3_edit_v1')
+model = tf.keras.models.load_model('./savedModel')
 class_names = ['damaged', 'flood', 'good', 'jam']
 
 def predicts(data):
@@ -32,7 +32,7 @@ def predicts(data):
             'className': class_name,
             'percentage': percent,
             'status': 0,
-            'prediction': 'Invalid',
+            'report': 'Invalid',
         }
     else:
         jsonDict = {
@@ -56,7 +56,12 @@ def preprocess(data):
 
 app = Flask(__name__)
 
-@app.route('/api/predict/img/', methods=['POST'])
+@app.route('/test', methods=['GET'])
+def index():
+    data = {'status': 200, 'data': 'Hello world!'}
+    return json.dumps(data)
+
+@app.route('/predict/img/', methods=['POST'])
 def predict_full_img():
     item = request.json
     item_dict = json.loads(item, strict=False)
