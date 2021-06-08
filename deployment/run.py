@@ -17,7 +17,7 @@ import io
 from flask import Flask, request
 import numpy as np
 
-model = tf.keras.models.load_model('./savedModel')
+model = tf.keras.models.load_model('../savedModel')
 class_names = ['damaged', 'flood', 'good', 'jam']
 
 def predicts(data):
